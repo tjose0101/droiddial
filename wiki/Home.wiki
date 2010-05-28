@@ -7,14 +7,14 @@ UsingToneDial
 
 ==Issues==
 
-Issues can be raised in the [Issue http://code.google.com/p/tonedial/issues/list] tab above.
+Issues can be raised in the [http://code.google.com/p/tonedial/issues/list Issue] tab above.
 
 ==History==
 
 Tone Dial is the first Android™ we are publishing. It is an exercise in making, testing and publishing a limited Android application.
 
-* 1.001 Donut support for Android 1.6
-* 0.007 Country and trunk code support
+  * 1.001 Donut support for Android 1.6
+  * 0.007 Country and trunk code support
 
 ==Tested on==
 
@@ -34,4 +34,4 @@ Do not use ToneDial in an emergency.
 
 ==Market==
 
-You can find ToneDial on the Android Market [Market market://details?id=net.xpdeveloper.dialer]
+You can find ToneDial on the [market://details?id=net.xpdeveloper.dialer Android Market]
