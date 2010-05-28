@@ -3,17 +3,17 @@
 You want to make a call using your home phone, but all your numbers are in your mobile.
 With Tone Dial running, your contact's phone number is turned into tones that a plain old telephone receiver will "hear" these tones and the number will be dialled.
 
-[[Using Tone Dial]]
+UsingToneDial
 
 ==Issues==
 
-Issues can be raised in the "issues":http://github.com/olibye/ToneDial/issues section of the website.
+Issues can be raised in the [Issue http://code.google.com/p/tonedial/issues/list] tab above.
 
 ==History==
 
 Tone Dial is the first Android™ we are publishing. It is an exercise in making, testing and publishing a limited Android application.
 
-* 1.000 Donut support for Android 1.6
+* 1.001 Donut support for Android 1.6
 * 0.007 Country and trunk code support
 
 ==Tested on==
