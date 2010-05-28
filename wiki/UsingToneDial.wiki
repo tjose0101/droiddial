@@ -1,0 +1,18 @@
+Tone Dial has two modes, enabled or disabled.
+
+==Enabled==
+
+When Tone Dial is enabled you'll see the Tone Dial icon in the status bar and all contacts dialed will tone dial instead of using the mobile network.
+To enable Tone Dial, start the Tone Dial application and check the Enable check box. We might change this so that it automatically enables when you start the application.
+
+==Disabled==
+
+When Tone Dial is disabled, your phone will dial normally on the mobile network.
+To disable Tone Dial simply uncheck the Tone Dial checkbox in the prerences.
+You can navigate to these preferences quickly from the Tone Dial icon in the notification bar.
+
+==Notifications==
+
+Tone Dial will display the last number dialed. This can help you if think you may have your country or trunk codes set incorrectly.
+
+[http://github.com/olibye/ToneDial/raw/release/public_html/images/preferences-half.png]
