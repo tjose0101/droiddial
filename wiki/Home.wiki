@@ -1,0 +1,37 @@
+=Tone Dial=
+
+You want to make a call using your home phone, but all your numbers are in your mobile.
+With Tone Dial running, your contact's phone number is turned into tones that a plain old telephone receiver will "hear" these tones and the number will be dialled.
+
+[[Using Tone Dial]]
+
+==Issues==
+
+Issues can be raised in the "issues":http://github.com/olibye/ToneDial/issues section of the website.
+
+==History==
+
+Tone Dial is the first Android™ we are publishing. It is an exercise in making, testing and publishing a limited Android application.
+
+* 1.000 Donut support for Android 1.6
+* 0.007 Country and trunk code support
+
+==Tested on==
+
+Nexus One in the UK.
+
+==Voice over IP (VoIP)==
+
+Many offices use VoIP phones. Tone Dial will *not* work with these phones.
+
+==Emergency Numbers==
+
+Tone Dial will *not* try to dial the following emergency numbers
+- 999
+- 911
+
+Do not use ToneDial in an emergency.
+
+==Market==
+
+You can find ToneDial on the Android Market [Market market://details?id=net.xpdeveloper.dialer]
