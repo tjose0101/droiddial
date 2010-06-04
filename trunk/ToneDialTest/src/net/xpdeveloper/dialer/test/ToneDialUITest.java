@@ -1,34 +1,33 @@
 package net.xpdeveloper.dialer.test;
 
+import java.util.ArrayList;
+
 import net.xpdeveloper.android.IIntentHelper;
-import net.xpdeveloper.dialer.ToneDialActivity;
-import net.xpdeveloper.dialer.ToneDialService;
-
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-
+import net.xpdeveloper.dialer.ToneDialLimitedActivity;
+import net.xpdeveloper.dialer.common.ToneDialActivity;
+import net.xpdeveloper.dialer.common.service.ToneDialService;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.preference.EditTextPreference;
+import android.preference.Preference;
 import android.provider.Contacts;
 import android.test.ActivityInstrumentationTestCase2;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.jayway.android.robotium.solo.Solo;
 
 public class ToneDialUITest extends
-		ActivityInstrumentationTestCase2<ToneDialActivity> {
+		ActivityInstrumentationTestCase2<ToneDialLimitedActivity> {
 
 	private Solo _solo;
-	private Mockery _mockery = new Mockery();
 
 	/**
 	 * Tests require a default constructor
 	 */
 	public ToneDialUITest() {
-		super(ToneDialActivity.class.getPackage().getName(),
-				ToneDialActivity.class);
+		super(ToneDialLimitedActivity.class.getPackage().getName(),
+				ToneDialLimitedActivity.class);
 	}
 
 	@Override
@@ -46,8 +45,11 @@ public class ToneDialUITest extends
 			e.printStackTrace();
 		}
 		getActivity().finish();
+		
+		// Setback for UK for my everyday use!
+		setupPreferences(getActivity(), "+44", "0");
+		
 		super.tearDown();
-
 	}
 
 	/**
@@ -63,10 +65,6 @@ public class ToneDialUITest extends
 			public void startService(Intent intent) {
 				assertEquals(ToneDialService.ACTION_SERVICE_STATE_CHANGE,
 						intent.getAction());
-				assertEquals("+44", intent
-						.getStringExtra(ToneDialActivity.EXTRA_COUNTRY_CODE));
-				assertEquals("0", intent
-						.getStringExtra(ToneDialActivity.EXTRA_TRUNK_CODE));
 				isSatisfied = true;
 			}
 
@@ -79,8 +77,6 @@ public class ToneDialUITest extends
 
 		ToneDialActivity unit = getActivity();
 		unit.setIIntentHelper(mockIntentHelper);
-
-		setupPreferences(unit, "+44", "0");
 
 		// Can not change preferences directly from this thread
 		unit.enableService(true);
@@ -103,73 +99,34 @@ public class ToneDialUITest extends
 		editor.commit();
 	}
 
-	public void testPreferenceChangeIntentOnCountryCodeChange() {
-		final IIntentHelper mockIntentHelper = _mockery
-				.mock(IIntentHelper.class);
-
-		class IntentMatcher extends BaseMatcher<Intent> {
-			public boolean matches(Object item) {
-				if (item instanceof Intent) {
-					Intent intent = (Intent) item;
-					assertEquals(ToneDialActivity.ACTION_PREFERENCE_CHANGE,
-							intent.getAction());
-					assertEquals(
-							"+44",
-							intent
-									.getStringExtra(ToneDialActivity.EXTRA_COUNTRY_CODE));
-					assertEquals("0", intent
-							.getStringExtra(ToneDialActivity.EXTRA_TRUNK_CODE));
-					return true;
-				}
-				return false;
-			}
-
-			@Override
-			public void describeTo(Description description) {
-				description.appendText("Intent checking");
-			}
-		}
-
-		_mockery.checking(new Expectations() {
-			{
-				one(mockIntentHelper).startService(with(new IntentMatcher()));
-			}
-		});
-
-		ToneDialActivity unit = getActivity();
-		unit.setIIntentHelper(mockIntentHelper);
-
-		unit.firePreferenceChange("+44", "0");
-
-		_mockery.assertIsSatisfied();
-	}
-
 	public void testCountryCodeSummaryChange() {
 		assertTrue("Expecting the Tone Dial Page", _solo
 				.searchText("Tone Dial"));
 
-		ToneDialActivity unit = getActivity();
-		setupPreferences(unit, "+44", "0");
-
-		_solo.clickOnText("Country Code");
+		_solo.clickInList(3);
+		_solo.clearEditText(0);
 		_solo.enterText(0, "+1");
 		_solo.clickOnText("OK");
-		assertTrue("Should change country code summary", _solo
-				.searchText("Replace +1 with Trunk Code"));
+		
+		ArrayList<ListView> lists = _solo.getCurrentListViews();
+		ListAdapter preferences = lists.get(0).getAdapter();
+		Preference preference = (Preference)preferences.getItem(1);
+		assertEquals("Summary didn't change", "Replace +1 with Trunk Code",preference.getSummary()); 
 	}
 
 	public void testTrunkCodeSummaryChange() {
 		assertTrue("Expecting the Tone Dial Page", _solo
 				.searchText("Tone Dial"));
 
-		ToneDialActivity unit = getActivity();
-		setupPreferences(unit, "", "");
-
-		_solo.clickOnText("Trunk Code");
-		_solo.enterText(0, "1-");
+		_solo.clickInList(5);
+		_solo.clearEditText(0);
+		_solo.enterText(0, "0");
 		_solo.clickOnText("OK");
-		assertTrue("Should change trunk code summary", _solo
-				.searchText("Country Code replaced by 1-"));
+		
+		ArrayList<ListView> lists = _solo.getCurrentListViews();
+		ListAdapter preferences = lists.get(0).getAdapter();
+		Preference preference = (Preference)preferences.getItem(2);
+		assertEquals("Summary didn't change", "Country Code replaced by 0",preference.getSummary()); 
 	}
 
 	public void testContactsURI() {

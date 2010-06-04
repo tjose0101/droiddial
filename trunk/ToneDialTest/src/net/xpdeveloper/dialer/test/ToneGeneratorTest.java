@@ -1,7 +1,7 @@
 package net.xpdeveloper.dialer.test;
 
-import net.xpdeveloper.dialer.ToneDialModel;
-import net.xpdeveloper.dialer.ToneDialService;
+import net.xpdeveloper.dialer.common.model.ToneDialModel;
+import net.xpdeveloper.dialer.common.service.ToneDialService;
 import android.test.ServiceTestCase;
 
 public class ToneGeneratorTest extends ServiceTestCase<ToneDialService> {
@@ -25,5 +25,4 @@ public class ToneGeneratorTest extends ServiceTestCase<ToneDialService> {
 		assertTrue("Should not dial 999", ToneDialModel
 				.isEmergencyNumer("911"));
 	}
-
 }
