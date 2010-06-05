@@ -13,6 +13,7 @@ Issues can be raised in the [http://code.google.com/p/tonedial/issues/list Issue
 
 Tone Dial is the first Android™ we are publishing. It is an exercise in making, testing and publishing a limited Android application.
 
+  * 2.000 Cupcake support, Dial Once, Icon Fixes
   * 1.001 Donut support for Android 1.6
   * 0.007 Country and trunk code support
 
